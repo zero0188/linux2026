@@ -1,0 +1,18 @@
+[Redis classroom instance]
+127.0.0.1:16379
+Redis server v=7.4.12 sha=00000000:0 malloc=jemalloc-5.3.0 bits=64 build=13f1be1732592706
+
+[Unauthenticated PING]
+NOAUTH Authentication required.
+
+[Authenticated PING, SET, GET, TYPE, DBSIZE]
+PONG
+OK
+redis-ready
+string
+1
+
+[Redis Insight service health]
+GET http://127.0.0.1:15540/api/health/
+HTTP 200
+{"status":"up"}

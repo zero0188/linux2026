@@ -1,0 +1,26 @@
+[MySQL classroom instance]
+127.0.0.1:13306
+
+[Authenticated classroom account]
++----------------+-------------+--------------------+
+| server_version | schema_name | authenticated_user |
++----------------+-------------+--------------------+
+| 8.4.13         | mydb        | myuser@%           |
++----------------+-------------+--------------------+
++--------------------------------------------------+
+| Grants for myuser@%                              |
++--------------------------------------------------+
+| GRANT USAGE ON *.* TO `myuser`@`%`               |
+| GRANT ALL PRIVILEGES ON `mydb`.* TO `myuser`@`%` |
++--------------------------------------------------+
+
+[Demo records]
++----+--------------+----------+
+| id | service_name | status   |
++----+--------------+----------+
+|  1 | MySQL        | verified |
+|  2 | Redis        | demo     |
++----+--------------+----------+
+
+[Privilege check outside mydb]
+PASS: classroom user cannot read mysql.user

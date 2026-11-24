@@ -1,0 +1,47 @@
+Ubuntu 24.04.1 LTS (WSL 2)
+OpenSSH Server package: 1:9.6p1-3ubuntu13.20
+Nginx package: 1.24.0-2ubuntu7.21
+
+Windows PowerShell → Ubuntu SSH（以下是实际会话输出）
+PS> ssh.exe -p 22222 -i <临时客户端私钥> root@127.0.0.1 <基础命令>
+whoami: root
+pwd: /root
+uname -s: Linux
+PRETTY_NAME="Ubuntu 24.04.1 LTS"
+man -w ls: /usr/share/man/man1/ls.1.gz
+-rw-r--r-- 1 root root 914 Nov 24 15:24 /tmp/linux-classroom-web-gJW2Yk/site/index.html
+
+Ubuntu Nginx 命令及输出
+$ nginx -v
+nginx version: nginx/1.24.0 (Ubuntu)
+$ nginx -t -c nginx.conf
+nginx: the configuration file /tmp/linux-classroom-web-gJW2Yk/nginx.conf syntax is ok
+nginx: configuration file /tmp/linux-classroom-web-gJW2Yk/nginx.conf test is successful
+
+$ curl -I http://127.0.0.1:18080/
+HTTP/1.1 200 OK
+Server: nginx/1.24.0 (Ubuntu)
+Date: Tue, 24 Nov 2026 07:24:59 GMT
+Content-Type: text/html
+Content-Length: 914
+Last-Modified: Tue, 24 Nov 2026 07:24:59 GMT
+Connection: keep-alive
+ETag: "6b053bcb-392"
+Accept-Ranges: bytes
+
+
+$ cmp site/index.html received.html
+HTTP 页面与部署的 index.html 字节完全一致。
+
+$ curl http://127.0.0.1:18080/not-present.html
+HTTP 404
+
+$ ss -ltn sport = :18080
+State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess
+LISTEN 0      511        127.0.0.1:18080      0.0.0.0:*
+
+Windows PowerShell → Nginx
+PS> curl.exe --noproxy "*" -I http://127.0.0.1:18080/
+HTTP/1.1 200 OK
+Server: nginx/1.24.0 (Ubuntu)
+Content-Type: text/html

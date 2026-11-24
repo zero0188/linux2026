@@ -1,0 +1,93 @@
+Shell lab verification
+GNU bash, version 5.2.21(1)-release (x86_64-pc-linux-gnu)
+Ubuntu 24.04.1 LTS
+
+Syntax check
+PASS 01-variables.sh
+PASS 02-quotes.sh
+PASS 03-greeting.sh
+PASS 04-compare.sh
+PASS 05-minimum.sh
+PASS 06-count-executable.sh
+PASS 07-prime.sh
+
+01-variables.sh
+Child Bash:
+var1=<>
+var2=<I am a global variable>
+Parent Bash:
+var1=<welcome to use local variable>
+var2=<I am a global variable>
+
+02-quotes.sh
+$ echo *
+alpha.txt beta tool empty folder run.sh
+$ echo "*"
+*
+$ echo $var3
+alpha.txt beta tool empty folder run.sh
+$ echo "$var3"
+*
+$ echo '$var3'
+$var3
+$ var4=`ls -l`
+$ echo "$var4"
+total 20
+-rw-r--r-- 1 root root    6 Nov 24 15:23 alpha.txt
+-rwxr--r-- 1 root root   35 Nov 24 15:23 beta tool
+drwxr-xr-x 2 root root 4096 Nov 24 15:23 empty
+drwxr-xr-x 2 root root 4096 Nov 24 15:23 folder
+-rwxr--r-- 1 root root   34 Nov 24 15:23 run.sh
+$ var5=ls
+$ echo "`$var5`"
+alpha.txt
+beta tool
+empty
+folder
+run.sh
+
+03-greeting.sh
+Actual local hour 15: Good afternoon!
+00 -> Good evening!
+01 -> Good morning!
+11 -> Good morning!
+12 -> Good afternoon!
+17 -> Good afternoon!
+18 -> Good evening!
+23 -> Good evening!
+
+04-compare.sh
+input: 8, 2
+Enter the first integer:
+Enter the second integer:
+8 is greater than 2
+input: -3, 0
+Enter the first integer:
+Enter the second integer:
+-3 is less than 0
+input: 7, 7
+Enter the first integer:
+Enter the second integer:
+7 is equal to 7
+
+05-minimum.sh
+8 2 18 0 -3 87 -> -3
+10008 10042 10006 -> 10006
+
+06-count-executable.sh
+fixture: 3 executable regular files, 1 non-executable regular file, 2 directories
+Total of 3 files executable
+empty directory: Total of 0 files executable
+
+07-prime.sh
+-5 is not a prime!
+0 is not a prime!
+1 is not a prime!
+2 is a prime!
+4 is not a prime!
+17 is a prime!
+25 is not a prime!
+009 is not a prime!
+029 is a prime!
+
+PASS: all Shell lab checks completed.

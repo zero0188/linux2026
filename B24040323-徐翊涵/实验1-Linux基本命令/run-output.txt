@@ -1,0 +1,119 @@
+Experiment 1 | B24040323 徐翊涵
+Environment: Ubuntu 24.04.1 LTS (WSL Ubuntu)
+
+=== 1. Directory operations | B24040323 徐翊涵 ===
+$ pwd
+/tmp/linux-basics.FjD7vVwE
+$ cd /tmp/linux-basics.FjD7vVwE/home
+$ mkdir 0323
+$ cd 0323
+$ mkdir cs
+$ ls
+cs
+$ rmdir cs
+$ ls
+
+=== 2. File operations | B24040323 徐翊涵 ===
+$ cd /tmp/linux-basics.FjD7vVwE/home
+$ touch 徐翊涵.txt
+$ ls
+0323
+徐翊涵.txt
+$ echo "hello world" > 0323.txt
+$ cat 0323.txt
+hello world
+$ cp 徐翊涵.txt 0323_copy.txt
+$ mv 徐翊涵.txt 0323_newname.txt
+$ ls
+0323
+0323.txt
+0323_copy.txt
+0323_newname.txt
+
+=== 3. User and group operations | B24040323 徐翊涵 ===
+$ whoami
+root
+Using a temporary root and account database.
+$ groupadd --root /tmp/linux-basics.FjD7vVwE/accounts student
+$ useradd --root /tmp/linux-basics.FjD7vVwE/accounts --badname --create-home --shell /bin/bash NY0323
+$ usermod --root /tmp/linux-basics.FjD7vVwE/accounts --gid student NY0323
+$ chroot /tmp/linux-basics.FjD7vVwE/accounts /usr/bin/su NY0323 -c cd\ ~\;\ whoami\;\ id\;\ touch\ NY0323.txt\;\ ls\ -l\ NY0323.txt
+NY0323
+uid=1000(NY0323) gid=1000(student) groups=1000(student)
+-rw-r--r-- 1 NY0323 student 0 Nov 24 15:24 NY0323.txt
+
+=== 4. File permissions | B24040323 徐翊涵 ===
+$ touch demo
+$ chmod 777 demo
+$ ls -l demo
+-rwxrwxrwx 1 root root 0 Nov 24 15:24 demo
+$ chmod a-x demo
+$ ls -l demo
+-rw-rw-rw- 1 root root 0 Nov 24 15:24 demo
+$ chmod go-w demo
+$ ls -l demo
+-rw-r--r-- 1 root root 0 Nov 24 15:24 demo
+$ chmod g+w demo
+$ ls -l demo
+-rw-rw-r-- 1 root root 0 Nov 24 15:24 demo
+$ chmod a= demo
+$ ls -l demo
+---------- 1 root root 0 Nov 24 15:24 demo
+$ chmod +t demo
+$ ls -l demo
+---------T 1 root root 0 Nov 24 15:24 demo
+$ chmod u+s demo
+$ ls -l demo
+---S-----T 1 root root 0 Nov 24 15:24 demo
+$ chmod u+rx demo
+$ ls -l demo
+-r-s-----T 1 root root 0 Nov 24 15:24 demo
+$ chmod g+rws demo
+$ ls -l demo
+-r-srwS--T 1 root root 0 Nov 24 15:24 demo
+
+=== 5. Archive and extraction | B24040323 徐翊涵 ===
+$ mkdir others
+$ touch others/example-a.txt others/example-b.txt
+$ tar -czvf backup.tar.gz others
+others/
+others/example-b.txt
+others/example-a.txt
+$ ls -l
+total 16
+drwxr-xr-x 2 root root 4096 Nov 24 15:24 0323
+-rw-r--r-- 1 root root   12 Nov 24 15:24 0323.txt
+-rw-r--r-- 1 root root    0 Nov 24 15:24 0323_copy.txt
+-rw-r--r-- 1 root root    0 Nov 24 15:24 0323_newname.txt
+-rw-r--r-- 1 root root  157 Nov 24 15:24 backup.tar.gz
+-r-srwS--T 1 root root    0 Nov 24 15:24 demo
+drwxr-xr-x 2 root root 4096 Nov 24 15:24 others
+$ mkdir restored
+$ tar -xzvf backup.tar.gz -C restored
+others/
+others/example-b.txt
+others/example-a.txt
+$ ls -l restored/others
+total 0
+-rw-r--r-- 1 root root 0 Nov 24 15:24 example-a.txt
+-rw-r--r-- 1 root root 0 Nov 24 15:24 example-b.txt
+
+=== 6. Text search | B24040323 徐翊涵 ===
+$ cat textfile
+no, I study in njupt.
+this line ends with 00
+this line ends with .00
+I am 25 years old.
+He is 15. It is 16.00
+wy is the short of my name.
+$ grep \^n textfile
+no, I study in njupt.
+$ grep \\.00\$ textfile
+this line ends with .00
+He is 15. It is 16.00
+$ grep 5\\.. textfile
+He is 15. It is 16.00
+$ grep \^\[wy\] textfile
+wy is the short of my name.
+
+All six command sections completed.
